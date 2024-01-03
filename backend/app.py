@@ -31,7 +31,7 @@ class GameRoundInfo(BaseModel):
     drawn_card: CardAttributes
 
 
-class APIResult(BaseModel):
+class APIResponse(BaseModel):
     round_info: List[GameRoundInfo]
     finished: bool
     winner: str | None
@@ -182,7 +182,7 @@ class GameOfCards:
         )
         return winner
 
-    def draw_and_compare_cards(self) -> APIResult:
+    def draw_and_compare_cards(self) -> APIResponse:
         is_last_round = False
         game_round = GameRound()
         for player in self.players:
