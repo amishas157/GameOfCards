@@ -235,9 +235,3 @@ def draw_cards():
         )
     response = game.draw_and_compare_cards()
     return jsonify(response)
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=5000)
