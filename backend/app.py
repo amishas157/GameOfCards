@@ -77,8 +77,7 @@ class DeckOfCardsApiClient:
     def get_deck(self) -> str:
         # TODO: Add error handling to accomodate cases when public API is down.
 
-        # FIXME: Remove cards filter, which was added to test the game end to end.
-        new_deck_url = "/new/shuffle/?deck_count=1&cards=AS,2S,KS,AD"
+        new_deck_url = "/new/shuffle/?deck_count=1"
         resp = requests.get(self.base_url + new_deck_url).json()
         return resp["deck_id"]
 
