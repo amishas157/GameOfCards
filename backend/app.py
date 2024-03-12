@@ -77,16 +77,14 @@ class DeckOfCardsApiClient:
     def get_deck(self) -> str:
         # TODO: Add error handling to accomodate cases when public API is down.
 
-        new_deck_url = "/new/shuffle/?deck_count=1"
-        resp = requests.get(self.base_url + new_deck_url).json()
+        resp = requests.get(f"{self.base_url}/new/shuffle/?deck_count=1").json()
         return resp["deck_id"]
 
     def draw_card(self, deck_id: str) -> Card:
         # TODO: Add error handling to accomodate cases when public API is down.
 
-        draw_deck_url = f"/{deck_id}/draw/?count=1"
-        resp = requests.get(self.base_url + draw_deck_url).json()
-        return Card(resp["cards"][0], is_last=True if resp["remaining"] == 0 else False)
+        resp = requests.get(f"{self.base_url}/{deck_id}/draw/?count=1").json()
+        return Card(resp["cards"][0], is_last=(resp["remaining"] == 0))
 
 
 class Player:
@@ -120,7 +118,7 @@ class GameRound:
     def find_round_winner(self) -> Player | None:
         assert (
             len(self.drawn_cards_by_players) >= 2
-        ), "Atleast 2 players are needed to play the game."
+        ), "At least 2 players are needed to play the game."
         if (
             self.drawn_cards_by_players[0]["card"].value
             == self.drawn_cards_by_players[1]["card"].value
@@ -168,10 +166,10 @@ class GameOfCards:
     def find_game_winner(self) -> Player | None:
         cache.clear()
 
-        assert len(self.players) >= 2, "Atleast 2 players are needed to play the game."
+        assert len(self.players) >= 2, "At least 2 players are needed to play the game."
         if self.players[0].score == self.players[1].score:
             # Assuming 2 player game
-            logging.info(f"The game is finished!!!! The match is a tie.")
+            logging.info("The game is finished!!!! The match is a tie.")
             return None
 
         sorted_players = sorted(self.players, key=lambda p: p.score, reverse=True)
