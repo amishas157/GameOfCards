@@ -77,15 +77,13 @@ class DeckOfCardsApiClient:
     def get_deck(self) -> str:
         # TODO: Add error handling to accomodate cases when public API is down.
 
-        new_deck_url = "/new/shuffle/?deck_count=1"
-        resp = requests.get(self.base_url + new_deck_url).json()
+        resp = requests.get(f"{self.base_url}/new/shuffle/?deck_count=1").json()
         return resp["deck_id"]
 
     def draw_card(self, deck_id: str) -> Card:
         # TODO: Add error handling to accomodate cases when public API is down.
 
-        draw_deck_url = f"/{deck_id}/draw/?count=1"
-        resp = requests.get(self.base_url + draw_deck_url).json()
+        resp = requests.get(f"{self.base_url}/{deck_id}/draw/?count=1").json()
         return Card(resp["cards"][0], is_last=(resp["remaining"] == 0))
 
 
