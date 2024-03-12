@@ -168,7 +168,7 @@ class GameOfCards:
     def find_game_winner(self) -> Player | None:
         cache.clear()
 
-        assert len(self.players) >= 2, "Atleast 2 players are needed to play the game."
+        assert len(self.players) >= 2, "At least 2 players are needed to play the game."
         if self.players[0].score == self.players[1].score:
             # Assuming 2 player game
             logging.info(f"The game is finished!!!! The match is a tie.")
