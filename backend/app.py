@@ -120,7 +120,7 @@ class GameRound:
     def find_round_winner(self) -> Player | None:
         assert (
             len(self.drawn_cards_by_players) >= 2
-        ), "Atleast 2 players are needed to play the game."
+        ), "At least 2 players are needed to play the game."
         if (
             self.drawn_cards_by_players[0]["card"].value
             == self.drawn_cards_by_players[1]["card"].value
