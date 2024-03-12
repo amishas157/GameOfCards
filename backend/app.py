@@ -86,7 +86,7 @@ class DeckOfCardsApiClient:
 
         draw_deck_url = f"/{deck_id}/draw/?count=1"
         resp = requests.get(self.base_url + draw_deck_url).json()
-        return Card(resp["cards"][0], is_last=True if resp["remaining"] == 0 else False)
+        return Card(resp["cards"][0], is_last=(resp["remaining"] == 0))
 
 
 class Player:
